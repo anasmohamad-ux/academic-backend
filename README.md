@@ -1,14 +1,51 @@
 <p align="center">
-  <img src="logo.svg" alt="EZY Academy Logo" width="500"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E40AF"/>
+      <stop offset="100%" style="stop-color:#0EA5E9"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FCD34D"/>
+      <stop offset="100%" style="stop-color:#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <rect width="520" height="160" rx="20" fill="url(#bg)"/>
+  <!-- Mortarboard top -->
+  <polygon points="100,44 150,66 100,74 50,66" fill="url(#gold)"/>
+  <!-- Mortarboard brim -->
+  <polygon points="62,66 138,66 128,84 72,84" fill="url(#gold)"/>
+  <!-- Tassel -->
+  <line x1="150" y1="66" x2="153" y2="90" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="153" cy="93" r="4" fill="#F59E0B"/>
+  <line x1="151" y1="95" x2="148" y2="108" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="153" y1="96" x2="153" y2="110" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="155" y1="95" x2="158" y2="108" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Books -->
+  <rect x="64" y="84" width="66" height="10" rx="2" fill="#3B82F6"/>
+  <rect x="67" y="95" width="60" height="10" rx="2" fill="#60A5FA"/>
+  <rect x="70" y="106" width="54" height="10" rx="2" fill="#93C5FD"/>
+  <!-- Spine lines -->
+  <line x1="72" y1="84" x2="72" y2="94" stroke="white" stroke-width="1" opacity="0.35"/>
+  <line x1="75" y1="95" x2="75" y2="105" stroke="white" stroke-width="1" opacity="0.35"/>
+  <line x1="78" y1="106" x2="78" y2="116" stroke="white" stroke-width="1" opacity="0.35"/>
+  <!-- Text -->
+  <text x="185" y="88" font-family="Arial,sans-serif" font-size="50" font-weight="900" fill="white" letter-spacing="2">EZY</text>
+  <text x="185" y="124" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#FCD34D" letter-spacing="9">ACADEMY</text>
+  <rect x="185" y="131" width="300" height="3" rx="2" fill="#FCD34D" opacity="0.55"/>
+  <!-- Dots -->
+  <circle cx="490" cy="28" r="3" fill="#FCD34D" opacity="0.7"/>
+  <circle cx="476" cy="16" r="2" fill="#FCD34D" opacity="0.5"/>
+  <circle cx="503" cy="20" r="2" fill="white" opacity="0.4"/>
+</svg>
 </p>
 
 <p align="center">
-  <strong>An online learning platform where students build custom course packages, teachers publish content, and admins control pricing — all through a clean REST API.</strong>
+  <strong>An online learning platform where students build custom course packages, teachers publish courses, and admins control pricing — all through a clean REST API.</strong>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-11-red?style=flat-square&logo=laravel" />
-  <img src="https://img.shields.io/badge/React-Vite-61DAFB?style=flat-square&logo=react" />
   <img src="https://img.shields.io/badge/Auth-Sanctum-orange?style=flat-square" />
   <img src="https://img.shields.io/badge/Roles-Spatie-purple?style=flat-square" />
   <img src="https://img.shields.io/badge/Architecture-SOLID-green?style=flat-square" />
@@ -42,11 +79,10 @@ No manual package creation. No hardcoded prices. Everything is dynamic.
 ### Teacher
 - Create courses with title, description, and icon
 - View all courses they have created
-- See how many students enrolled in their courses
 
 ### Admin
 - Set and update course prices
-- Edit program tax amounts (controls all pricing instantly)
+- Edit program tax amounts — controls all pricing instantly
 - Rename packages
 - Manage all users — edit roles, delete accounts, add teachers
 
@@ -54,54 +90,12 @@ No manual package creation. No hardcoded prices. Everything is dynamic.
 
 ## Tech Stack
 
-| Layer | Technology | Why |
-|-------|-----------|-----|
-| Backend API | Laravel 11 | Robust PHP framework |
-| Authentication | Laravel Sanctum | Stateless token-based auth |
-| Authorization | Spatie Permission | Role and permission management |
-| Frontend (test) | React + Vite | Fast UI for testing the API |
-| HTTP Client | Axios | API calls with auto token injection |
-| Routing | React Router DOM | Client-side navigation |
-| Database | MySQL | Relational data storage |
-
----
-
-## Project Structure
-
-```
-lastcall/
-├── backend/                        Laravel 11 REST API
-│   ├── app/
-│   │   ├── Contracts/              Interfaces (PricingStrategyInterface)
-│   │   ├── Services/               Business logic
-│   │   │   ├── PackageService      Auto-creates packages from selected courses
-│   │   │   ├── PricingService      Calculates package price dynamically
-│   │   │   └── EnrollmentService   Handles enroll and cancel flow
-│   │   ├── Http/
-│   │   │   ├── Controllers/
-│   │   │   │   ├── Api/            Auth (register, login, logout)
-│   │   │   │   ├── Admin/          Users, Courses, Programs, Packages
-│   │   │   │   ├── Teacher/        Courses
-│   │   │   │   └── Student/        Courses, Basket, Enrollment, MyCourses
-│   │   │   ├── Requests/           One validation class per action
-│   │   │   └── Resources/          JSON response formatting
-│   │   ├── Models/                 User, Course, Package, Program, Enrollment
-│   │   └── Policies/               Authorization per model
-│   ├── database/
-│   │   ├── migrations/             5 custom tables
-│   │   ├── seeders/                Roles, programs, default users
-│   │   └── factories/              Test data factories
-│   ├── routes/api.php              All API routes
-│   └── tests/                      9 passing tests
-│
-└── frontend/                       React + Vite test UI
-    └── src/
-        ├── api/axios.js            Axios instance with token interceptor
-        └── pages/
-            ├── Home.jsx            Popular courses and navbar
-            ├── Login.jsx           Login form
-            └── Register.jsx        Registration form
-```
+| Layer | Technology |
+|-------|-----------|
+| Backend API | Laravel 11 |
+| Authentication | Laravel Sanctum |
+| Authorization | Spatie Laravel Permission |
+| Database | MySQL |
 
 ---
 
@@ -140,17 +134,6 @@ php artisan db:seed
 ```bash
 php artisan serve
 # http://127.0.0.1:8000
-```
-
----
-
-## Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-# http://localhost:5173
 ```
 
 ---
@@ -238,7 +221,7 @@ Admin can update any tax amount at any time and all future enrollments reflect i
 users           id, name, email, password, avatar
 programs        id, name, tax_amount
 courses         id, user_id (teacher), title, description, icon, price
-packages        id, title, hash (fingerprint of course IDs)
+packages        id, title, hash
 course_package  course_id, package_id  (pivot)
 enrollments     id, user_id, package_id, program_id, paid_price
 ```
@@ -263,8 +246,6 @@ enrollments     id, user_id, package_id, program_id, paid_price
 POST /api/register  or  POST /api/login
           ↓
   { user: {...}, token: "1|abc123..." }
-          ↓
-  Store token in localStorage
           ↓
   All requests → Authorization: Bearer 1|abc123...
 ```
@@ -296,29 +277,8 @@ Tests: 9 passed
 
 ## Dependencies
 
-### Backend
 | Package | Purpose |
 |---------|---------|
 | spatie/laravel-permission | Roles and permissions |
 | spatie/laravel-query-builder | Filterable API queries |
 | laravel/sanctum | Token authentication |
-
-### Frontend
-| Package | Purpose |
-|---------|---------|
-| axios | HTTP requests to the API |
-| react-router-dom | Client-side routing |
-
----
-
-## Running Everything
-
-```bash
-# Terminal 1
-cd backend && php artisan serve
-
-# Terminal 2
-cd frontend && npm run dev
-```
-
-Open `http://localhost:5173`
